@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nalabolu Akhil | Vibe Coder & AI Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:     #07080f;
+      --bg1:    #0d0f1c;
+      --bg2:    #111428;
+      --green:  #00e5a0;
+      --purple: #a78bfa;
+      --pink:   #f472b6;
+      --text:   #eef0ff;
+      --muted:  #5a6380;
+      --border: rgba(0,229,160,0.1);
+      --mono:   'JetBrains Mono', monospace;
+      --sans:   'Cabinet Grotesk', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--green); }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5vw;
+      background: rgba(7,8,15,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--green);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .logo span { color: var(--muted); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--green);
+      color: var(--green);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: all 0.2s;
+    }
+    .nav-cta:hover { background: var(--green); color: var(--bg); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 5vw 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: floaty 8s ease-in-out infinite;
+    }
+    .blob1 { width: 500px; height: 500px; background: rgba(0,229,160,0.06); top: -80px; right: -80px; }
+    .blob2 { width: 380px; height: 380px; background: rgba(167,139,250,0.05); bottom: 50px; left: -60px; animation-delay: -4s; }
+    @keyframes floaty {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+
+    .hero-inner { position: relative; z-index: 2; max-width: 860px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+    }
+    .eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--green); }
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero-name {
+      font-family: var(--sans);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+    .solid { color: var(--text); }
+    .outline { color: transparent; -webkit-text-stroke: 1.5px var(--green); }
+
+    .hero-role {
+      font-family: var(--mono);
+      font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+      line-height: 2;
+    }
+    .hl  { color: var(--green); }
+    .hl2 { color: var(--purple); }
+    .hl3 { color: var(--pink); }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.85;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-fill { background: var(--green); color: var(--bg); border: 1px solid var(--green); }
+    .btn-fill:hover { background: transparent; color: var(--green); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,0.12); }
+    .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+    .stat {
+      padding-right: 2.5rem;
+      margin-right: 2.5rem;
+      border-right: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-v { font-family: var(--sans); font-size: 1.8rem; font-weight: 800; color: var(--green); line-height: 1; }
+    .stat-l { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.3rem; }
+
+    /* SECTIONS */
+    section { padding: 6rem 5vw; }
+
+    .sec-tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--green);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .sec-title {
+      font-family: var(--sans);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 3rem;
+    }
+    .sec-title em { font-style: normal; color: transparent; -webkit-text-stroke: 1px var(--green); }
+
+    /* ABOUT */
+    #about { background: var(--bg1); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      align-items: start;
+      max-width: 1100px;
+    }
+    .about-text p { color: var(--muted); font-size: 1rem; line-height: 1.9; margin-bottom: 1.2rem; }
+    .about-text p strong { color: var(--text); }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.8rem; }
+    .chip {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .chip:hover { border-color: var(--green); color: var(--green); }
+
+    .profile-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 1.8rem;
+    }
+    .card-title {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--green);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .row:last-child { border-bottom: none; }
+    .rk { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; flex-shrink: 0; }
+    .rv { font-size: 0.83rem; color: var(--text); text-align: right; word-break: break-word; }
+    .rv.live { color: var(--green); }
+
+    /* SKILLS */
+    #skills { background: var(--bg); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.2rem;
+      max-width: 1100px;
+    }
+    .sk-card {
+      background: var(--bg1);
+      border: 1px solid var(--border);
+      padding: 1.8rem;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .sk-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .sk-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-3px); }
+    .sk-card:hover::after { transform: scaleX(1); }
+    .sk-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+    .sk-name { font-family: var(--sans); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.55rem; }
+    .sk-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.2rem; }
+    .pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .pill {
+      font-family: var(--mono);
+      font-size: 0.61rem;
+      padding: 0.2rem 0.6rem;
+      background: rgba(0,229,160,0.07);
+      color: var(--green);
+      letter-spacing: 0.04em;
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--bg1); }
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.4rem;
+      max-width: 1100px;
+    }
+    .proj-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .proj-card:hover { border-color: rgba(0,229,160,0.35); transform: translateY(-4px); }
+    .proj-top {
+      padding: 1.5rem 1.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .proj-num { font-family: var(--mono); font-size: 0.6rem; color: var(--green); opacity: 0.5; }
+    .proj-lks { display: flex; gap: 0.5rem; }
+    .proj-lk {
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      padding: 0.28rem 0.65rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.07em;
+      transition: all 0.2s;
+    }
+    .proj-lk:hover { border-color: var(--green); color: var(--green); }
+    .proj-body { padding: 1rem 1.5rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .proj-title { font-family: var(--sans); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .proj-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; flex: 1; margin-bottom: 1.2rem; }
+    .techs { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tech {
+      font-family: var(--mono);
+      font-size: 0.61rem;
+      padding: 0.2rem 0.58rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* CONTACT */
+    #contact { background: var(--bg); }
+    .contact-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .contact-desc { font-size: 1rem; color: var(--muted); line-height: 1.85; margin-bottom: 2.5rem; }
+    .c-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-bottom: 2.5rem; }
+    .c-btn {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.8rem;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .c-btn:hover { border-color: var(--green); color: var(--green); }
+    .c-btn.prime { background: var(--green); color: var(--bg); border-color: var(--green); }
+    .c-btn.prime:hover { background: transparent; color: var(--green); }
+    .c-details { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); line-height: 2; }
+    .c-details a { color: var(--green); text-decoration: none; }
+    .c-details a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      padding: 1.8rem 5vw;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    footer p { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; }
+    footer span { color: var(--green); }
+
+    /* AI CHAT FAB */
+    #chat-fab {
+      position: fixed;
+      bottom: 1.8rem; right: 1.8rem;
+      z-index: 600;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--bg);
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 0 rgba(0,229,160,0.4);
+      animation: pulse-fab 3s ease-in-out infinite;
+    }
+    @keyframes pulse-fab {
+      0%   { box-shadow: 0 0 0 0 rgba(0,229,160,0.4); }
+      70%  { box-shadow: 0 0 0 12px rgba(0,229,160,0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,229,160,0); }
+    }
+
+    #chat-panel {
+      position: fixed;
+      bottom: 5.2rem; right: 1.8rem;
+      z-index: 600;
+      width: 320px;
+      background: var(--bg1);
+      border: 1px solid var(--border);
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+    }
+    #chat-panel.open { display: flex; }
+    .ch-hdr {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,229,160,0.05);
+    }
+    .ch-hdr-t { font-family: var(--mono); font-size: 0.68rem; color: var(--green); letter-spacing: 0.12em; }
+    .ch-close { background: none; border: none; color: var(--muted); font-size: 1rem; cursor: pointer; }
+    .ch-msgs {
+      flex: 1; padding: 0.9rem;
+      overflow-y: auto; max-height: 260px;
+      display: flex; flex-direction: column; gap: 0.65rem;
+    }
+    .msg {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.81rem; line-height: 1.6; max-width: 90%;
+    }
+    .msg.ai    { background: rgba(0,229,160,0.06); border: 1px solid var(--border); align-self: flex-start; }
+    .msg.user  { background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.15); align-self: flex-end; }
+    .msg.typing { font-family: var(--mono); color: var(--green); font-size: 0.7rem; }
+    .ch-row {
+      display: flex; gap: 0.4rem;
+      padding: 0.75rem; border-top: 1px solid var(--border);
+    }
+    .ch-inp {
+      flex: 1; background: transparent;
+      border: 1px solid var(--border); color: var(--text);
+      font-family: var(--mono); font-size: 0.75rem;
+      padding: 0.42rem 0.65rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .ch-inp:focus { border-color: var(--green); }
+    .ch-send {
+      background: var(--green); color: var(--bg);
+      border: none; padding: 0.42rem 0.85rem;
+      font-family: var(--mono); font-size: 0.7rem;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .ch-send:hover { opacity: 0.85; }
+
+    /* REVEAL ANIM */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 4vw; }
+      .nav-links, .nav-cta { display: none; }
+      #hero, section { padding: 5rem 4vw 3rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .stats { gap: 1rem; }
+      .stat { border-right: none; padding-right: 0; margin-right: 0; }
+      footer { flex-direction: column; text-align: center; }
+      #chat-panel { width: calc(100vw - 3rem); right: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="logo">NA<span>.</span>AKHIL</a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <a href="mailto:akhilnalabolu166@gmail.com" class="nav-cta">hire me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="hero-inner">
+    <div class="eyebrow"><div class="dot"></div>Open to Internships &amp; Collaborations</div>
+    <h1 class="hero-name">
+      <span class="solid">Nalabolu</span><br>
+      <span class="outline">Akhil</span>
+    </h1>
+    <p class="hero-role">
+      <span class="hl">Vibe Coder</span> &nbsp;·&nbsp;
+      <span class="hl2">AI Workflow Architect</span> &nbsp;·&nbsp;
+      <span class="hl3">AI Agents Builder</span><br>
+      B.Tech IT &mdash; R.V.R &amp; J.C. College of Engineering, Guntur
+    </p>
+    <p class="hero-desc">
+      I build practical AI-powered products that solve real problems &mdash; fast.
+      From autonomous agents to end-to-end automation pipelines, I ship with
+      speed, clarity, and clean system design.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-fill">View Projects &rarr;</a>
+      <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-v">2024–28</div><div class="stat-l">B.Tech Batch</div></div>
+      <div class="stat"><div class="stat-v">5+</div><div class="stat-l">Projects Built</div></div>
+      <div class="stat"><div class="stat-v">Java</div><div class="stat-l">Primary Lang</div></div>
+      <div class="stat"><div class="stat-v">AI</div><div class="stat-l">Core Stack</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-tag">// 01 — About</div>
+  <h2 class="sec-title">Who I <em>Am</em></h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm <strong>Nalabolu Akhil</strong>, a 2nd-year Information Technology student at R.V.R. &amp; J.C. College of Engineering with a strong passion for building efficient, real-world systems.</p>
+      <p>I focus on <strong>Applied AI, backend systems, AI workflows, and AI agents</strong> that automate real tasks. I enjoy vibe coding and rapidly prototyping intelligent tools using modern AI platforms.</p>
+      <p>I'm known for strong <strong>strategic planning, logical thinking, and designing clean, scalable systems</strong>. My goal is to build practical AI-powered products that solve meaningful problems.</p>
+      <div class="chips">
+        <span class="chip">Vibe Coding</span>
+        <span class="chip">AI Agents</span>
+        <span class="chip">AI Workflows</span>
+        <span class="chip">Prompt Engineering</span>
+        <span class="chip">Java</span>
+        <span class="chip">Python</span>
+        <span class="chip">C</span>
+        <span class="chip">Git / GitHub</span>
+        <span class="chip">System Design</span>
+        <span class="chip">Strategic Planning</span>
+      </div>
+    </div>
+    <div class="profile-card">
+      <div class="card-title">// Profile</div>
+      <div class="row"><span class="rk">NAME</span><span class="rv">Nalabolu Akhil</span></div>
+      <div class="row"><span class="rk">EMAIL</span><span class="rv">akhilnalabolu166@gmail.com</span></div>
+      <div class="row"><span class="rk">PHONE</span><span class="rv">+91-9014478898</span></div>
+      <div class="row"><span class="rk">DEGREE</span><span class="rv">B.Tech — Information Technology</span></div>
+      <div class="row"><span class="rk">COLLEGE</span><span class="rv">R.V.R &amp; J.C. COE, Guntur</span></div>
+      <div class="row"><span class="rk">BATCH</span><span class="rv">2024 — 2028</span></div>
+      <div class="row"><span class="rk">LOCATION</span><span class="rv">Guntur, AP, India</span></div>
+      <div class="row"><span class="rk">LANGUAGES</span><span class="rv">Telugu · English · Hindi</span></div>
+      <div class="row"><span class="rk">STATUS</span><span class="rv live">● Open to Opportunities</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-tag">// 02 — Skills</div>
+  <h2 class="sec-title">What I <em>Do</em></h2>
+  <div class="skills-grid reveal">
+
+    <div class="sk-card">
+      <div class="sk-icon">⚡</div>
+      <div class="sk-name">Vibe Coding</div>
+      <p class="sk-desc">Rapidly prototyping and shipping intelligent tools using modern AI platforms. Minimal friction, maximum output — clean code, fast builds, real results.</p>
+      <div class="pills">
+        <span class="pill">Java</span><span class="pill">Python</span><span class="pill">C</span>
+        <span class="pill">Rapid Prototyping</span><span class="pill">Clean System Design</span>
+      </div>
+    </div>
+
+    <div class="sk-card">
+      <div class="sk-icon">🤖</div>
+      <div class="sk-name">AI Agents</div>
+      <p class="sk-desc">Designing autonomous AI agents that make decisions, use tools, and complete multi-step tasks without human intervention — from simple bots to full agentic loops.</p>
+      <div class="pills">
+        <span class="pill">Agentic Loops</span><span class="pill">Tool Use</span>
+        <span class="pill">LLM APIs</span><span class="pill">AI Tool Integration</span>
+      </div>
+    </div>
+
+    <div class="sk-card">
+      <div class="sk-icon">🔀</div>
+      <div class="sk-name">AI Workflow Design</div>
+      <p class="sk-desc">Building end-to-end automation pipelines that chain models, tools, and data sources — turning raw inputs into intelligent, automated outputs.</p>
+      <div class="pills">
+        <span class="pill">AI Workflows</span><span class="pill">Automation Pipelines</span>
+        <span class="pill">Prompt Systems</span><span class="pill">API Chaining</span>
+      </div>
+    </div>
+
+    <div class="sk-card">
+      <div class="sk-icon">🧠</div>
+      <div class="sk-name">Prompt Engineering</div>
+      <p class="sk-desc">Crafting system prompts, chain-of-thought structures, and few-shot examples that unlock the full capability of frontier models for any task.</p>
+      <div class="pills">
+        <span class="pill">System Prompts</span><span class="pill">Chain-of-Thought</span>
+        <span class="pill">Few-Shot</span><span class="pill">Claude / GPT-4</span>
+      </div>
+    </div>
+
+    <div class="sk-card">
+      <div class="sk-icon">📐</div>
+      <div class="sk-name">DSA & Problem Solving</div>
+      <p class="sk-desc">Strong problem-solving ability with algorithm optimization and logical thinking. Competing in national coding challenges with structured, efficient solutions.</p>
+      <div class="pills">
+        <span class="pill">Data Structures</span><span class="pill">Algorithms</span>
+        <span class="pill">Optimization</span><span class="pill">Competitive Coding</span>
+      </div>
+    </div>
+
+    <div class="sk-card">
+      <div class="sk-icon">🛠️</div>
+      <div class="sk-name">Tools & Strategy</div>
+      <p class="sk-desc">End-to-end project ownership — from Git-based version control to strategic planning, system design thinking, and problem decomposition.</p>
+      <div class="pills">
+        <span class="pill">Git</span><span class="pill">GitHub</span>
+        <span class="pill">GitHub Pages</span><span class="pill">System Design</span>
+        <span class="pill">Strategic Planning</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-tag">// 03 — Projects</div>
+  <h2 class="sec-title">Things I've <em>Built</em></h2>
+  <div class="proj-grid reveal">
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-num">01</span>
+        <div class="proj-lks"><a href="https://github.com/akhil34-7" target="_blank" class="proj-lk">GitHub ↗</a></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title">AI Workflow Experiments</div>
+        <p class="proj-desc">Designing and testing AI workflows that automate multi-step tasks using modern AI tools. Built structured prompt systems and end-to-end automation pipelines that chain models, tools, and data sources intelligently.</p>
+        <div class="techs">
+          <span class="tech">AI Workflows</span><span class="tech">Prompt Eng.</span>
+          <span class="tech">LLM APIs</span><span class="tech">Automation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-num">02</span>
+        <div class="proj-lks"><a href="https://github.com/akhil34-7" target="_blank" class="proj-lk">GitHub ↗</a></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title">Snake Game</div>
+        <p class="proj-desc">A classic Snake game built with focus on algorithmic efficiency, clean code structure, and smooth game-loop logic. Emphasis on data structures and OOP problem-solving.</p>
+        <div class="techs">
+          <span class="tech">Java</span><span class="tech">Algorithms</span>
+          <span class="tech">Game Logic</span><span class="tech">OOP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-num">03</span>
+        <div class="proj-lks"><a href="https://github.com/akhil34-7" target="_blank" class="proj-lk">GitHub ↗</a></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title">2048 Game</div>
+        <p class="proj-desc">Built the 2048 sliding puzzle from scratch — implementing grid logic, tile merge mechanics, and score tracking with clean, efficient system design.</p>
+        <div class="techs">
+          <span class="tech">Java</span><span class="tech">Data Structures</span><span class="tech">Logic Design</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-num">04</span>
+        <div class="proj-lks"><a href="https://github.com/akhil34-7" target="_blank" class="proj-lk">GitHub ↗</a></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title">College Marks Calculator</div>
+        <p class="proj-desc">A customized marks calculator for R.V.R &amp; J.C. College's grading system — automating GPA calculation, subject-wise analysis, and credit-weighted scoring for students.</p>
+        <div class="techs">
+          <span class="tech">Java</span><span class="tech">Python</span><span class="tech">Logic Systems</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-num">05</span>
+        <div class="proj-lks"><a href="#hero" class="proj-lk">Live ↗</a></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title">Personal Portfolio Website</div>
+        <p class="proj-desc">This very site — a dark techy developer portfolio with a built-in AI chat assistant, animated UI, and fully responsive layout. Deployed on Vercel.</p>
+        <div class="techs">
+          <span class="tech">HTML / CSS / JS</span><span class="tech">AI Integration</span><span class="tech">Vercel</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="sec-tag">// 04 — Contact</div>
+    <h2 class="sec-title" style="text-align:center;">Let's <em>Connect</em></h2>
+    <p class="contact-desc">Open to internships, AI project collaborations, freelance builds, or just a good conversation about tech, automation, or motorsports. Don't hesitate to reach out.</p>
+    <div class="c-btns">
+      <a href="mailto:akhilnalabolu166@gmail.com" class="c-btn prime">✉ Email Me</a>
+      <a href="https://www.linkedin.com/in/akhil-nalabolu-4a5245383" target="_blank" class="c-btn">in LinkedIn</a>
+      <a href="https://github.com/akhil34-7" target="_blank" class="c-btn">⌥ GitHub</a>
+    </div>
+    <div class="c-details">
+      <a href="mailto:akhilnalabolu166@gmail.com">akhilnalabolu166@gmail.com</a>
+      &nbsp;·&nbsp;
+      <a href="tel:+919014478898">+91-9014478898</a>
+      &nbsp;·&nbsp;
+      Guntur, AP, India
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Nalabolu Akhil</span> — Built with precision &amp; passion.</p>
+  <p><span>●</span> Guntur, Andhra Pradesh, India</p>
+</footer>
+
+<!-- AI CHAT -->
+<button id="chat-fab" title="Ask Akhil's AI">✦</button>
+<div id="chat-panel">
+  <div class="ch-hdr">
+    <span class="ch-hdr-t">// ASK AKHIL'S AI</span>
+    <button class="ch-close" id="ch-close">✕</button>
+  </div>
+  <div class="ch-msgs" id="ch-msgs">
+    <div class="msg ai">Hey! I'm Akhil's AI assistant. Ask me anything about his skills, projects, or how to reach him 🚀</div>
+  </div>
+  <div class="ch-row">
+    <input class="ch-inp" id="ch-inp" type="text" placeholder="Ask anything..." />
+    <button class="ch-send" id="ch-send">Send</button>
+  </div>
+</div>
+
+<script>
+  // Scroll reveal
+  const revEls = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  revEls.forEach(el => ro.observe(el));
+
+  // Nav active
+  const secs = document.querySelectorAll('section[id]');
+  const nls = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+    nls.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--green)' : ''; });
+  });
+
+  // Chat
+  const fab   = document.getElementById('chat-fab');
+  const panel = document.getElementById('chat-panel');
+  const close = document.getElementById('ch-close');
+  const inp   = document.getElementById('ch-inp');
+  const send  = document.getElementById('ch-send');
+  const msgs  = document.getElementById('ch-msgs');
+
+  fab.onclick   = () => panel.classList.toggle('open');
+  close.onclick = () => panel.classList.remove('open');
+
+  function addMsg(text, type) {
+    const d = document.createElement('div');
+    d.className = 'msg ' + type;
+    d.textContent = text;
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
+    return d;
+  }
+
+  async function sendMsg() {
+    const q = inp.value.trim();
+    if (!q) return;
+    inp.value = '';
+    addMsg(q, 'user');
+    const loader = addMsg('thinking...', 'ai typing');
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 300,
+          system: `You are an AI assistant on Nalabolu Akhil's portfolio website. Be friendly, concise, and techy. Keep all answers to 2-4 sentences max.
+
+Key facts:
+- Name: Nalabolu Akhil, Age 19, Male
+- Location: Guntur, Andhra Pradesh, India
+- Email: akhilnalabolu166@gmail.com | Phone: +91-9014478898
+- 2nd year B.Tech IT, R.V.R. & J.C. College of Engineering (2024-2028)
+- Identity: Vibe Coder, AI Workflow Architect, AI Agents Builder
+- Languages: Java, Python, C
+- Skills: AI Agents, AI Workflows, Prompt Engineering, AI Tool Integration, DSA, Git/GitHub, System Design, Strategic Planning
+- Projects: AI Workflow Experiments, Snake Game, 2048 Game, College Marks Calculator, Portfolio Website
+- GitHub: https://github.com/akhil34-7
+- LinkedIn: https://www.linkedin.com/in/akhil-nalabolu-4a5245383
+- Interests: Motorsports (F1 & rally racing), fitness & nutrition tracking
+- Spoken: Telugu (native), English (professional), Hindi (basic)
+- Competing in Google "The Big Code" 2026
+- Open to internships and collaborations`,
+          messages: [{ role: 'user', content: q }]
+        })
+      });
+      const data = await res.json();
+      const reply = (data.content || []).map(c => c.text || '').join('') || "Sorry, couldn't get a response. Reach Akhil at akhilnalabolu166@gmail.com!";
+      loader.textContent = reply;
+      loader.classList.remove('typing');
+    } catch {
+      loader.textContent = "Can't connect right now. Reach Akhil directly at akhilnalabolu166@gmail.com!";
+      loader.classList.remove('typing');
+    }
+  }
+
+  send.onclick = sendMsg;
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
+</script>
+</body>
+</html>
